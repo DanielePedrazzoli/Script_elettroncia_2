@@ -145,7 +145,7 @@ double EvalString(char *string){
 }
 
 int main(){
-    char StirngToEval[] = "1 * 5.2";
+    char StirngToEval[] = "-1 * 5.2";
     char StirngToEva2[] = "-20 + 5.2";
     char StirngToEva3[] = "100 / 5.2";
     char StirngToEva4[] = "1000 - 5.2";

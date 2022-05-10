@@ -24,23 +24,6 @@ char IsCharASpace(char carattere){
 }
 
 
-/**
- * @brief Controlla se il valore intero e ritorna true in tal caso
- * Ritorna false se il valore non è intero
- * 
- * @param NumberDouble 
- * @return char 
- */
-char IsInteger(double NumberDouble)
-{
-    // eseguo un parsing a INT
-    int NumberInteger = NumberDouble;
- 
-    // eseguo la differenza dei due
-    // se il risultato è diverso da 0 allora è float
-    return  (NumberDouble - NumberInteger);
-}
- 
 
 /**
  * @brief Esegue l'eval di una striga ricevuta come argomento
@@ -123,36 +106,24 @@ double EvalString(char *string){
     // se il primo carattere era un '-', allora questo numero diventa negativo
     Result = Numeri[0] * FisrtNegative;
 
-    // eseguo l'operazione effettiva
+    // eseguo l'operazione effettiva e ritorno il valore
     switch (SegnoOperazione){
-        case '+':
-            Result +=  Numeri[1];
-            break;
-
-        case '-':
-            Result -=  Numeri[1];
-            break;
-
-        case '*':
-            Result *=  Numeri[1];
-            break;
-
-        case '/':
-            Result /=  Numeri[1];
-            break;
+        case '+':   return Result + Numeri[1];
+        case '-':   return Result - Numeri[1];
+        case '*':   return Result * Numeri[1];
+        case '/':   return Result / Numeri[1];
     }
-    return Result;
 }
 
 int main(){
-    char StirngToEval[] = "1 * 5.2";
-    char StirngToEva2[] = "-20 + 5.2";
-    char StirngToEva3[] = "100 / 5.2";
-    char StirngToEva4[] = "1000 - 5.2";
-    printf("Eval string 1:\t%f\n", EvalString(StirngToEval));
-    printf("Eval string 2:\t%f\n", EvalString(StirngToEva2));
-    printf("Eval string 3:\t%f\n", EvalString(StirngToEva3));
-    printf("Eval string 4:\t%f\n", EvalString(StirngToEva4));
+    char StirngToEval[] = "-1 * 5.2";               
+    char StirngToEva2[] = "-20 + 5.2";             
+    char StirngToEva3[] = "100 / 5.2";              
+    char StirngToEva4[] = "1000 - 5.2";             
+    printf("Eval string 1:\t%f\n", EvalString(StirngToEval));   // -5.2
+    printf("Eval string 2:\t%f\n", EvalString(StirngToEva2));   // -14.8
+    printf("Eval string 3:\t%f\n", EvalString(StirngToEva3));   // 19.230769
+    printf("Eval string 4:\t%f\n", EvalString(StirngToEva4));   // 994.8
 }
 
 
