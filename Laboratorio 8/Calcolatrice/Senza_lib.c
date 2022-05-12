@@ -84,7 +84,6 @@ float ParseToFloat(char *string){
             (1 * 10^3) + (2 * 10^2) + (3 * 10^1) + (4 * 10^0) + (5 * 10^(-1)) + (6 * 10^(-2))
     */
 
-
     // calcolo l'esponente di 10 con cui iniziare
     // per farlo determino dove si trova il punto decimale
     int esponente = IndexOfDot(string) - 1;
@@ -126,24 +125,22 @@ double EvalString(char *string){
 
     char valoriStriga[2][MAX_NUMBER_LENGTH];
 
-    char currentSign = 0;
-    char IndexOfNumber = 1;
     char ColumsForCurretnNumber = 0;
     char RowForCurretnNumber = 0;
-    char FisrtNegative = 1;
+    char FisrtNumberSign = 1;
 
     char SegnoOperazione;
     double Numeri[2];
     double Result;
 
-    // contatore ciclo
+
     int i = 0;
 
     // se il primo carattere è un meno
     // allora alzo una flag e nel calcolo moltiplico il primo valore per -1
     // inoltre imposto l'indice per fare in modo di iniziare il carattere dopo
     if(string[0] == '-'){
-        FisrtNegative = -1;
+        FisrtNumberSign = -1;
         i = 1;
     }
 
@@ -192,7 +189,7 @@ double EvalString(char *string){
 
     // immagazzino il primo valore come risultato
     // se il primo carattere era un '-', allora questo numero diventa negativo
-    Result = Numeri[0] * FisrtNegative;
+    Result = Numeri[0] * FisrtNumberSign;
 
     // eseguo l'operazione effettiva e ritorno il valore
     switch (SegnoOperazione){
