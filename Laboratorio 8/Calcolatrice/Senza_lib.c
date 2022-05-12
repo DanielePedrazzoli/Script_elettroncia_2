@@ -187,7 +187,7 @@ int main(){
     char StirngToEva2[] = "-20 + 5.2";             
     char StirngToEva3[] = "100 / 5.2";              
     char StirngToEva4[] = "1000 - 5.2";             
-
+    printf("############################################\n");
     printf("Eval string 1:\t%f\n", EvalString(StirngToEval));   // -5.2
     printf("Eval string 2:\t%f\n", EvalString(StirngToEva2));   // -14.8
     printf("Eval string 3:\t%f\n", EvalString(StirngToEva3));   // 19.230769
