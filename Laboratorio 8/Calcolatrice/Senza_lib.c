@@ -9,26 +9,8 @@
  * @param carattere 
  * @return char 
  */
-char IsCharASign(char carattere){
+char IsOperator(char carattere){
     return (carattere == '+' || carattere == '-' || carattere == '*' || carattere == '/');
-}
-
-/**
- * @brief Controlla se il carattere ricevuto è uno spazio, in tal caso ritorna true
- * 
- * @param carattere 
- * @return char 
- */
-char IsCharASpace(char carattere){
-    return carattere == ' ';
-}
-
-int Strlen(char *string){
-    int L = 0;
-    for(L=0; string[L] != 0; L++){
-        L = L;
-    }
-    return L;
 }
 
 
@@ -70,12 +52,12 @@ float Power(int exp){
     return res;
 }
 
-
-int multiplyTen(int n)
-{
-    return (n<<1) + (n<<3);
-}
-
+/**
+ * @brief Trasforma una stringa in un valore float
+ * 
+ * @param string 
+ * @return float 
+ */
 float ParseToFloat(char *string){
 
     /*
@@ -125,13 +107,13 @@ double EvalString(char *string){
 
     char valoriStriga[2][MAX_NUMBER_LENGTH];
 
-    char ColumsForCurretnNumber = 0;
-    char RowForCurretnNumber = 0;
+    char Digit_Current_Number = 0;
+    char Number_Selector = 0;
     char FisrtNumberSign = 1;
 
-    char SegnoOperazione;
-    double Numeri[2];
-    double Result;
+    char SegnoOperazione = '+';
+    float Numeri[2];
+    float Result;
 
 
     int i = 0;
@@ -150,37 +132,37 @@ double EvalString(char *string){
         char currentChar = string[i];
 
         // se è uno spazio lo ignoro
-        if(IsCharASpace(currentChar))
+        if(currentChar == ' ')
             continue;
         
 
         // controllo se il carattere attuale è un segno
-        if(IsCharASign(currentChar)){
+        if(IsOperator(currentChar)){
 
             // incremento il valore che mi permette di stabilire su quale
             // numero devo lavorare
-            RowForCurretnNumber ++;
+            Number_Selector ++;
 
-            valoriStriga[0][ColumsForCurretnNumber] = 0;
+            valoriStriga[0][Digit_Current_Number] = 0;
 
             // avendo trovato un segno, posso salvarlo in memoria
             SegnoOperazione = currentChar;
          
             // questo indice mi aiuta per l'indice per la trascirzione del numero
-            ColumsForCurretnNumber = 0;
+            Digit_Current_Number = 0;
             continue;
         }
 
         // determino su quale numero sto lavorando
         // questo viene modificato in base al segno 
         // quando trovo un segno devo trascrivre un'altro numero
-        valoriStriga[RowForCurretnNumber][ColumsForCurretnNumber] = currentChar;
+        valoriStriga[Number_Selector][Digit_Current_Number] = currentChar;
 
         // incremento la variabile di idice per il numero corrente
-        ColumsForCurretnNumber++;
+        Digit_Current_Number++;
     }
 
-    valoriStriga[1][ColumsForCurretnNumber] = 0;
+    valoriStriga[1][Digit_Current_Number] = 0;
 
 
     Numeri[0] = ParseToFloat(valoriStriga[0]);
