@@ -41,7 +41,7 @@ float Power(int exp){
 
     // se l'esponente è positivo moltiplico per 10
     if(exp > 0)
-        for(int i=1; i<exp; i++)
+        for(int i=0; i<exp; i++)
             res *= 10;
 
     // se l'esponente è positivo divido per 10
@@ -61,7 +61,7 @@ float Power(int exp){
 float ParseToFloat(char *string){
 
     /*
-        es: string = "1234,56" --->
+        es: string = "1234.56" --->
             (1 * 1000) + (2 * 100) + (3 * 10) + (4 * 1) + (5 * 0.1) + (6 * 0.01) =
             (1 * 10^3) + (2 * 10^2) + (3 * 10^1) + (4 * 10^0) + (5 * 10^(-1)) + (6 * 10^(-2))
     */
@@ -70,17 +70,22 @@ float ParseToFloat(char *string){
     // per farlo determino dove si trova il punto decimale
     int esponente = IndexOfDot(string) - 1;
     float number = 0;
+    char DotEcounter = 0;
     
     for(int i=0; string[i] != 0; i++){
         char digit = string[i] - '0';     
+     
+
 
         if(string[i] == '.'){
+            DotEcounter = 1;
             continue;
         }
-
+    
         // moltiplico il numero corrente con il valore 
         // della potenza di 10 in base alla sua posizione nella stringa
-        float potenza = Power(esponente - i+1);
+        float potenza = Power(esponente - i + DotEcounter);
+
 
         // compongo il numero finale sommando ogni componente
         // moltiplicato per il suo peso
@@ -88,8 +93,6 @@ float ParseToFloat(char *string){
     }
 
     return number;
-
-
 }
 
 
@@ -167,7 +170,6 @@ double EvalString(char *string){
 
     Numeri[0] = ParseToFloat(valoriStriga[0]);
     Numeri[1] = ParseToFloat(valoriStriga[1]);
-
 
     // immagazzino il primo valore come risultato
     // se il primo carattere era un '-', allora questo numero diventa negativo
