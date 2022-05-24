@@ -51,19 +51,22 @@ void Separatore(){
 }
 
 
-Matrice Moltiplica(Matrice M1, Matrice M2){
+int Moltiplica(Matrice M1, Matrice M2,  Matrice* M3){
 
 
 
     if(M1.Colonne != M2.Righe || M1.Righe != M2.Colonne){
         printf("\033[31mErrore:\nIl numero di colonne della prima matrice deve corrispondere al numero di righe della seconda matrice.\n\033[37m");
+        return 0;
     }
 
     int Row = M1.Righe;
     int Col = M2.Colonne;
 
+    M3->Colonne = Col;
+    M3->Righe = Row;
 
-    Matrice M_res = { Row, Col , {{0}}};
+    //M3 = (Matrice*) { Row, Col , {{0}}};
 
 
     int i,j,R,C;
@@ -75,20 +78,20 @@ Matrice Moltiplica(Matrice M1, Matrice M2){
                 v += M1.Dati[i][k] * M2.Dati[k][j];
             }
 
-            M_res.Dati[i][j] = v;
+            M3->Dati[i][j] = v;
         }
     }
 
-
-
-    return M_res;
+    return 1;
+//    StampaMatrice(*M3);
 
 }
 
+
 int main(){
 
-    Matrice_1 = RiempiMatrice(5, 3);
-    Matrice_2 = RiempiMatrice(3, 5);
+    Matrice_1 = RiempiMatrice(2, 2);
+    Matrice_2 = RiempiMatrice(2, 2);
 
     Separatore();
     printf("\033[32mMatrice 1\n\033[37m");
@@ -98,9 +101,12 @@ int main(){
     StampaMatrice(Matrice_2);
     Separatore();
 
-    Matrice Risultato = Moltiplica(Matrice_1, Matrice_2);
+    Matrice Risultato;
+    Moltiplica(Matrice_1, Matrice_2, &Risultato);
 
     printf("\033[32mMatrice res\n\033[37m");
     StampaMatrice(Risultato);
+
+
 
 }
