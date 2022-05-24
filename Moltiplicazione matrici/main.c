@@ -9,8 +9,8 @@ typedef struct {
 }Matrice;
 
 
-Matrice Matrice_1 = { 2,3, {{1,2,3}, {4,5,6}} };
-Matrice Matrice_2 = { 3,2, {{1,2}, {3,4}, {5,6}} };
+Matrice Matrice_1;
+Matrice Matrice_2;
 
 
 void StampaMatrice( Matrice matrice){
@@ -26,6 +26,24 @@ void StampaMatrice( Matrice matrice){
 
 }
 
+Matrice RiempiMatrice(int Nr, int Nc){
+
+    int c = 1;
+    Matrice M_res = { Nr, Nc , {{0}}};
+
+
+    for(int i=0; i<Nr; i++){
+        for(int j=0; j<Nc; j++){
+            M_res.Dati[i][j] = c++;
+        }
+    }
+
+    return M_res;
+
+
+}
+
+
 void Separatore(){
     for(int i=0; i<50; i++)
         printf("#");
@@ -35,8 +53,15 @@ void Separatore(){
 
 Matrice Moltiplica(Matrice M1, Matrice M2){
 
+
+
+    if(M1.Colonne != M2.Righe || M1.Righe != M2.Colonne){
+        printf("\033[31mErrore:\nIl numero di colonne della prima matrice deve corrispondere al numero di righe della seconda matrice.\n\033[37m");
+    }
+
     int Row = M1.Righe;
     int Col = M2.Colonne;
+
 
     Matrice M_res = { Row, Col , {{0}}};
 
@@ -62,7 +87,8 @@ Matrice Moltiplica(Matrice M1, Matrice M2){
 
 int main(){
 
-
+    Matrice_1 = RiempiMatrice(5, 3);
+    Matrice_2 = RiempiMatrice(3, 5);
 
     Separatore();
     printf("\033[32mMatrice 1\n\033[37m");
@@ -72,7 +98,7 @@ int main(){
     StampaMatrice(Matrice_2);
     Separatore();
 
-    Matrice Risultato = Moltiplica(Matrice_2, Matrice_1);
+    Matrice Risultato = Moltiplica(Matrice_1, Matrice_2);
 
     printf("\033[32mMatrice res\n\033[37m");
     StampaMatrice(Risultato);
