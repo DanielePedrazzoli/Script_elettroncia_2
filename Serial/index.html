@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <script src="Serial.js" defer></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.0.2/Chart.min.js"></script>
+    <script src="PLot.js" defer></script>
+
+    <script src="Script.js" defer></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    
+    <div id="Container">
+        <div id="Head">
+            <h1>Comunicazione Seriale STM32</h1>
+            <div>
+                <button id="ChosePort">Scegli Porta</button>
+                <button class="ErrorBtn" id="DesotryPort">Stacca Porta</button>
+                <button class="InfoBtn" id="StopChart">Abilita/Ferma Grafico</button>
+                <div class="CheckBoxContainer">
+                    <input type="checkbox" name="" id="AngoliMode">
+                    <span>Modalità angoli</span>
+                </div>
+                
+            </div>
+
+        </div>
+        <div id="CanvasContainer">
+            <canvas id="canvasG" width="400" height="400"></canvas>
+            <canvas id="canvasA" width="400" height="400"></canvas>
+        </div>
+    
+        <div id="DataConainer">
+            <div>
+                <h1>Dati Ricevuti</h1>
+                <button  class="InfoBtn" id="ExportBtn">Esporta</button>
+                <button  class="InfoBtn" id="ClearChatBtn">Pulisci</button>
+            </div>
+            <textarea id="chat" readonly ></textarea>
+        </div>
+    
+        <div id="TextContainer">
+            <textarea id="InputText" ></textarea>
+            <div id="SendingBtnContainer">
+                <button id="Send">Invia</button>
+                <button class="InfoBtn">Pulisci</button>
+            </div>
+        </div>
+    </div>
+
+
+  
+</body>
+</html>
