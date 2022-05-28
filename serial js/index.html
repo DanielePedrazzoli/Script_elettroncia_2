@@ -39,7 +39,7 @@
 
         <div id="DataConainer">
             <div>
-                <h1>Dati Ricevuti</h1>
+                <h2>Dati Ricevuti</h2>
                 <button class="InfoBtn" id="ExportBtn" onclick="Export()">Esporta</button>
                 <button class="InfoBtn" id="ClearChatBtn" onclick="ClearChat()">Pulisci</button>
             </div>
@@ -47,11 +47,15 @@
         </div>
 
         <div id="TextContainer">
-            <textarea id="InputText"></textarea>
-            <div id="SendingBtnContainer">
-                <button id="Send" onclick="SendData()">Invia</button>
-                <button class="InfoBtn">Pulisci</button>
+            <h2>Input dati</h2>
+            <div>
+                <textarea id="InputText"></textarea>
+                <div id="SendingBtnContainer">
+                    <button id="Send" onclick="SendData()">Invia</button>
+                    <button class="InfoBtn">Pulisci</button>
+                </div>
             </div>
+
         </div>
     </div>
 
