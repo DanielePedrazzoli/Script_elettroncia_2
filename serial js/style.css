@@ -141,17 +141,14 @@ button{
     align-items: center;
     justify-content: center;
     flex-direction: column;
-    box-shadow: 0px 0px 10px 1px rgba(0, 188, 0,0.2);
 }
 
 .InfoBtn{
     background: linear-gradient(rgb(0, 128, 255), rgb(0, 64, 128));
-    box-shadow: 0px 0px 10px 1px rgba(0, 128, 255,0.2);
 }
 
 .ErrorBtn{
     background: linear-gradient(rgb(203, 0, 0), rgb(134, 0, 0));
-    box-shadow: 0px 0px 10px 1px rgba(203, 0, 0,0.2);
 }
 
 .DisabledBtn{

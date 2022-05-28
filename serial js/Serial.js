@@ -9,34 +9,21 @@ class SerialPort{
 
 
     async Init(baudRate){
-        if(baudRate){
-            this.baudRate = baudRate;
-        }
-
-        let port = await navigator.serial.requestPort({})
-        
-        this.ComPort = port;
-
-        this.ComPort.addEventListener('disconnect', event => {
-            alert("Serial disconnected")
-          });
+        if(baudRate) this.baudRate = baudRate;
+        this.ComPort = await navigator.serial.requestPort({})
+        this.ComPort.addEventListener('disconnect',  event => alert("Serial disconnected"));
         await this.ComPort.open({baudRate:115200});
-
     }
 
     async Write(data){
-
         const encoder = new TextEncoder();
         const writer = this.ComPort.writable.getWriter();
         await writer.write(encoder.encode(data + "\r"));
         writer.releaseLock();
-
     }
 
     StartListen(time){
-
         this.PollingIntervall = setInterval( async()=>this.DataAvaiable(), time? time: 10)
-
     }
 
     async StopListen(){
@@ -46,13 +33,10 @@ class SerialPort{
 
     async DataAvaiable(){
 
-        if(!this.ComPort || this.Reading)
-            return;
+        if(!this.ComPort || this.Reading) return;
 
  
         while (this.ComPort.readable) {
-            
-            
             this.reader = this.ComPort.readable.getReader();
             try {
                 while (true) {
@@ -64,9 +48,7 @@ class SerialPort{
                         this.Reading = false
                         break;
                     }
-
                     this.OnNewMessage(value, this)
-
                 }
             } catch (error) {
                 console.log(error)
@@ -81,8 +63,9 @@ class SerialPort{
         this.OnNewMessage = callback;
     }
 
-    Destroy(){
-        this.ComPort.close()
-        this.ComPort = null
+    async Destroy(){
+        // await this.reader.cancel()
+        // await this.ComPort.close()
+        
     }
 }

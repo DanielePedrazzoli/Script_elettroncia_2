@@ -1,35 +1,25 @@
 
-
+// inizializzaione grafici
 let plotG = new Grafico(document.getElementById("canvasG"), {Max:1000, Min:-1000, NumberOfStep:200, NumberOfSet:3})
-let plotA = new Grafico(document.getElementById("canvasA"), {Max:180, Min:-180, NumberOfStep:200, NumberOfSet:2})
-
-let CurrentPlot = plotG;
-
-let port = new SerialPort(115200);
-
-let FromLastChar = ""
-let SelectPort      = document.getElementById("ChosePort")
-let DestroyPort     = document.getElementById("DesotryPort")
-let StopChart       = document.getElementById("StopChart")
-let SendBTN         = document.getElementById("Send")
-let ExportBtn       = document.getElementById("ExportBtn")
-let ClearChatBtn    = document.getElementById("ClearChatBtn")
-let Chat            = document.getElementById("chat")
-let ChartModeSelect = document.getElementById("AngoliMode")
-
-ClearChatBtn.onclick    = ClearChat
-DestroyPort.onclick     = port.Destroy
-ExportBtn.onclick       = Export
-SelectPort.onclick      = SelectNewPort
-StopChart.onclick       = ToggleChart
-SendBTN.onclick         = SendData
-ChartModeSelect.onclick = ToggleActiveCart
-
-port.SetOnNewMessage(NewMessage)
-
+let plotA = new Grafico(document.getElementById("canvasA"), {Max:180,  Min:-180,  NumberOfStep:200, NumberOfSet:2})
 plotA.Hide()
 
 
+// inizializzazione porta seriale
+let port  = new SerialPort(115200);
+port.SetOnNewMessage(NewMessage)
+
+
+//inizializzazione varibili gloabali
+let Chat            = document.getElementById("chat")
+let ChartModeSelect = document.getElementById("AngoliMode")
+let FromLastChar    = ""
+
+
+ChartModeSelect.onclick = ToggleActiveCart
+
+
+// funzioni chiamate 
 function ClearChat(){
     if(confirm("Eliminare tutta la cronologia dei messaggi?")){
         Chat.value = ""
@@ -40,10 +30,17 @@ function ClearChat(){
 function Export(){
 
     let text = document.getElementById("chat").value
+    let parseText = ""
 
-    text = text.replace(/#|x|y|z|:/gmi, "")
+    text.split("#").forEach( row=>{
+        let m = row.replace(/\n|\r/gm, "").match(/[+-]?\d+(\.\d+)?/g)
+        if(!m)return
+        parseText += m.join(";") + "\n"
+    })
 
-    var blob = new Blob([text], { type: "text/csv" });
+    
+
+    var blob = new Blob([parseText], { type: "text/csv" });
     var a = document.createElement('a');
     a.download = "STM file.csv";
     a.href = URL.createObjectURL(blob);
@@ -86,14 +83,22 @@ function NewMessage(data){
 
     FromLastChar+= string;
 
-    if(!FromLastChar.includes("#"))
-        return;
+
+    if(!FromLastChar.includes("#")){
+        return
+    }
+
+    let LastIndexOfSeparator = FromLastChar.lastIndexOf("#");
+    let ValidString = FromLastChar.substring(0, LastIndexOfSeparator);
+
+    FromLastChar = FromLastChar.substring(LastIndexOfSeparator+1,FromLastChar.length-1)
+
+
     
 
     if(document.getElementById("AngoliMode").checked == true){
         CurrentPlot = plotA
-
-        FromLastChar.split("#").forEach( r=>{
+        ValidString.split("#").forEach( r=>{
 
             // controllo se la riga contiene entrambi gli angoli
             // solo in quel caso cntinuo alrimenti viene ingorata
@@ -117,8 +122,7 @@ function NewMessage(data){
     }
     else {
         CurrentPlot = plotG
-
-        FromLastChar.split("#").forEach( r=>{
+        ValidString.split("#").forEach( r=>{
           
             // controllo se la riga contiene i tre assi
             // solo in quel caso cntinuo alrimenti viene ingorata
@@ -132,15 +136,15 @@ function NewMessage(data){
             let VAxis = r.split(",")
             
             // per ogni asse calcolo il valore float eliminando ogni non numero prima dei :
-            VAxis = VAxis.map( Value=>{
-                return parseFloat(Value.replace(/\D{1,}:/gm, ""));
+            VAxis.forEach( (Value,i)=>{
+                let vf = parseFloat(Value.replace(/\D{1,}:/gm, ""))
+                if(i < 3){
+                    plotG.InsertData(vf,i);
+                }
+             
             })
     
-    
-            // infine assegno il valore 
-            plotG.InsertData(VAxis[0],0)
-            plotG.InsertData(VAxis[1],1)
-            plotG.InsertData(VAxis[2],2)
+
         })
     }
 
