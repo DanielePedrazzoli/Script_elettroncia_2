@@ -16,6 +16,10 @@ class SerialPort{
     }
 
     async Write(data){
+        if(this.ComPort == null){
+            alert("Nessuna scheda connessa")
+            return
+        }
         const encoder = new TextEncoder();
         const writer = this.ComPort.writable.getWriter();
         await writer.write(encoder.encode(data + "\r"));
@@ -23,6 +27,7 @@ class SerialPort{
     }
 
     StartListen(time){
+
         this.PollingIntervall = setInterval( async()=>this.DataAvaiable(), time? time: 10)
     }
 
@@ -64,6 +69,10 @@ class SerialPort{
     }
 
     async Destroy(){
+        if(this.ComPort == null){
+            alert("Nessuna scheda connessa")
+            return
+        }
         // await this.reader.cancel()
         // await this.ComPort.close()
         

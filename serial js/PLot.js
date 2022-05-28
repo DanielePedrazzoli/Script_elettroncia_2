@@ -11,7 +11,7 @@ class Grafico{
         this.canvas         = canvas
         
 
-        this.Stroke = ["rgba(220,0,0,1)", "rgba(255,0,255,1)", "rgba(100,220,100,1)"]
+        this.Stroke = ["rgba(200,0,250,1)", "rgba(255,0,0,1)", "rgba(0,220,0,1)"]
 
     
         this.ctx = canvas.getContext("2d");
@@ -34,7 +34,7 @@ class Grafico{
                 label: "X",
                 fillColor: "rgba(220,220,220,0.0)",
                 strokeColor: this.Stroke[i],
-                pointColor: "rgba(220,220,220,1)",
+                pointColor: "rgba(220,220,220,0)",
                 pointStrokeColor: "#fff",
                 type:"line",
                 data: Array(this.MaxLenght).fill(0)
