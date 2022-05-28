@@ -50,66 +50,32 @@ function NewMessage(data){
 
     let LastIndexOfSeparator = FromLastChar.lastIndexOf("#");
     let ValidString = FromLastChar.substring(0, LastIndexOfSeparator);
-
     FromLastChar = FromLastChar.substring(LastIndexOfSeparator+1,FromLastChar.length-1)
 
 
 
-    if(document.getElementById("AngoliMode").checked == true){
-        CurrentPlot = plotA
-        ValidString.split("#").forEach( r=>{
+    ValidString.split("#").forEach( r=>{
 
-            // controllo se la riga contiene entrambi gli angoli
-            // solo in quel caso cntinuo alrimenti viene ingorata
-            if(!r.includes("roll") || !r.includes("pitch"))
-                return;
-            
-            // rimuovo i ritorno a capo
-            r = r.replace(/\r/, "")
-            let VAngle = r.split(",")
-            
+        // determino a quale grafico devo inviare i dati in base al valore 
+        // della checkbox
+        if(document.getElementById("AngoliMode").checked){
+            CurrentPlot = plotA
+            GetValueFromStirng(r).forEach( (valore, index) => plotA.InsertData(parseFloat(valore),index))   
+        }else{
+            CurrentPlot = plotG
+            GetValueFromStirng(r).forEach( (valore, index) => plotG.InsertData(parseFloat(valore),index))
+        }
 
-    
-            VAngle = VAngle.map( Value=>{
-                return parseFloat(Value.replace(/\D{1,}:|\n/gm, ""));
-            })
-    
-    
-            plotA.InsertData(VAngle[0],0)
-            plotA.InsertData(VAngle[1],1)
-        })
-    }
-    else {
-        CurrentPlot = plotG
-        ValidString.split("#").forEach( r=>{
-          
-            // controllo se la riga contiene i tre assi
-            // solo in quel caso cntinuo alrimenti viene ingorata
-            if(!r.includes("x") || !r.includes("y") || !r.includes("z"))
-                return;
-
-            // rimuovo i ritorno a capo
-            r = r.replace(/\r|\n/, "")
-
-            // divido per virgola
-            let VAxis = r.split(",")
-            
-            // per ogni asse calcolo il valore float eliminando ogni non numero prima dei :
-            VAxis.forEach( (Value,i)=>{
-                let vf = parseFloat(Value.replace(/\D{1,}:/gm, ""))
-                if(i < 3){
-                    plotG.InsertData(vf,i);
-                }
-             
-            })
-    
-
-        })
-    }
+        
+    })
 
     
       
     FromLastChar = ""
+}
+
+function GetValueFromStirng(stringa){
+    return stringa.replace(/\n|\r/gm, "").match(/[+-]?\d+(\.\d+)?/g)
 }
 
 async function ToggleActiveCart(){

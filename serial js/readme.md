@@ -37,23 +37,16 @@ Ogni volta che arriva un dato questo viene sommato ad una stringa temporanea.
 Quando viene letto un carattere delimitatore, la stringa ottenuta fino a quel momento viene analizzata e i dati vengono inviati al grafico opportuno.
 La scelta dei dati al quale inviare i dati è decisa dalla checkbox in alto a destra (sopra il grafico).
 Sono infatti presenti 2 grafici ( accelerazione su 3 assi e rotazione su 2 assi).
-Per essere presa come valida una riga contenente le accelerazioni deve:
-- Contenere tutte e tre le lettere **x**,**y** e **z**
-- Le lettere devono essere separate dal valore numerico con il carattere **:**
-- I campi devono essere separati da virgola
->un esempio di riga valida:
->x:100.2,y:56,z:1024#
+Quando si visualizza il grafico delle accelerazioni, verranno presi come valori validi i primi 3 valori rispettivamente per assi : **x**,**y** e **z**
+Quando si visualizza il grafico degli angoli, verranno presi come valori validi i primi 2 valori rispettivamente per assi : **pitch** e **roll**
+**Ogni altro carattere verrà ignorato**
 
-Per quanto riguarda il grafico degli angoli, il formato deve essere:
-- Deve contenere la parola **pitch** e la parola **roll**
-- Le lettere devono essere separate dal valore numerico con il carattere **:**
-- I campi devono essere separati da virgola
->un esempio di riga valida:
->pitch:46.5,roll:90#
-
-Si consiglia di non utilizzare il grafico troppo a lungo e fermarlo quando non necessario a causa della grande quantità di Heap che utilizza.
+>Si consiglia di non utilizzare il grafico troppo a lungo e fermarlo quando non necessario a causa della grande quantità di Heap che utilizza.
 Per quanto ottimizzato su alcuni computer potrebbe creare un problema.
 In tal caso è sufficiente chiudere e riaprire
 
+Cambiare da un grafico all'altro invierà in automatico un carattere **d** alla scheda
+
 ## Programmatore
+
 Pedrazzoli Daniele

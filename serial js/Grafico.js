@@ -39,7 +39,7 @@ class Grafico{
                 pointColor: "rgba(220,220,220,0)",
                 pointStrokeColor: "#fff",
                 type:"line",
-                data: Array(this.MaxLenght).fill(100*i)
+                data: Array(this.MaxLenght).fill(0)
             })
         }
 
