@@ -10,7 +10,7 @@
     <script src="Serial.js" defer></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.0.2/Chart.min.js"></script>
     <script src="Plot.js" defer></script>
-
+    <script src="TextRecived.js"></script>
     <script src="Script.js" defer></script>
     <link rel="stylesheet" href="style.css">
 </head>
@@ -40,8 +40,8 @@
         <div id="DataConainer">
             <div>
                 <h2>Dati Ricevuti</h2>
-                <button class="InfoBtn" id="ExportBtn" onclick="Export()">Esporta</button>
-                <button class="InfoBtn" id="ClearChatBtn" onclick="ClearChat()">Pulisci</button>
+                <button class="InfoBtn" id="ExportBtn" onclick="textRecived.Export()">Esporta</button>
+                <button class="InfoBtn" id="ClearChatBtn" onclick="textRecived.Reset(true)">Pulisci</button>
             </div>
             <textarea id="chat" readonly></textarea>
         </div>

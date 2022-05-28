@@ -10,8 +10,10 @@ class Grafico{
         this.IntervallTime  = 1000
         this.canvas         = canvas
         
-
-        this.Stroke = ["rgba(200,0,250,1)", "rgba(255,0,0,1)", "rgba(0,220,0,1)"]
+        if(options.Colors){
+            this.Stroke = options.Colors;
+        }
+        else this.Stroke = ["rgba(200,0,250,1)", "rgba(255,0,0,1)", "rgba(0,220,0,1)"]
 
     
         this.ctx = canvas.getContext("2d");
@@ -37,7 +39,7 @@ class Grafico{
                 pointColor: "rgba(220,220,220,0)",
                 pointStrokeColor: "#fff",
                 type:"line",
-                data: Array(this.MaxLenght).fill(0)
+                data: Array(this.MaxLenght).fill(100*i)
             })
         }
 

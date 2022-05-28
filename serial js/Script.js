@@ -1,7 +1,7 @@
 
 // inizializzaione grafici
-let plotG = new Grafico(document.getElementById("canvasG"), {Max:1000, Min:-1000, NumberOfStep:200, NumberOfSet:3})
-let plotA = new Grafico(document.getElementById("canvasA"), {Max:180,  Min:-180,  NumberOfStep:200, NumberOfSet:2})
+let plotG = new Grafico(document.getElementById("canvasG"), {Max:1000, Min:-1000, NumberOfStep:200, NumberOfSet:3, Colors:["red", "green", "yellow"]})
+let plotA = new Grafico(document.getElementById("canvasA"), {Max:180,  Min:-180,  NumberOfStep:200, NumberOfSet:2, Colors:["white", "orange"]})
 plotA.Hide()
 
 
@@ -10,46 +10,15 @@ let port  = new SerialPort(115200);
 port.SetOnNewMessage(NewMessage)
 
 
+// inizializzazione area dati ricevuti 
+let textRecived = new TextRecived( document.getElementById("chat"))
+
 //inizializzazione varibili gloabali
-let Chat            = document.getElementById("chat")
 let ChartModeSelect = document.getElementById("AngoliMode")
 let FromLastChar    = ""
 
-
 ChartModeSelect.onclick = ToggleActiveCart
 
-
-// funzioni chiamate 
-function ClearChat(){
-    if(confirm("Eliminare tutta la cronologia dei messaggi?")){
-        Chat.value = ""
-    }
-}
-
-
-function Export(){
-
-    let text = document.getElementById("chat").value
-    let parseText = ""
-
-    text.split("#").forEach( row=>{
-        let m = row.replace(/\n|\r/gm, "").match(/[+-]?\d+(\.\d+)?/g)
-        if(!m)return
-        parseText += m.join(";") + "\n"
-    })
-
-    
-
-    var blob = new Blob([parseText], { type: "text/csv" });
-    var a = document.createElement('a');
-    a.download = "STM file.csv";
-    a.href = URL.createObjectURL(blob);
-    a.dataset.downloadurl = ["text/csv", a.download, a.href].join(':');
-    a.style.display = "none";
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-}
 
 async function SelectNewPort(){
     await port.Init(115200);
@@ -72,17 +41,8 @@ function NewMessage(data){
 
     
     const string = new TextDecoder().decode(data);
-    Chat.value += string;
-
-
-
-    // autoscroll textarea
-    if(Chat.selectionStart == Chat.selectionEnd) {
-        Chat.scrollTop = Chat.scrollHeight;
-    }
-
+    textRecived.AddPlain(string);
     FromLastChar+= string;
-
 
     if(!FromLastChar.includes("#")){
         return
@@ -94,7 +54,6 @@ function NewMessage(data){
     FromLastChar = FromLastChar.substring(LastIndexOfSeparator+1,FromLastChar.length-1)
 
 
-    
 
     if(document.getElementById("AngoliMode").checked == true){
         CurrentPlot = plotA
