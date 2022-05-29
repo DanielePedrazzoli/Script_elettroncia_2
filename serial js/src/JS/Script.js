@@ -1,7 +1,8 @@
 
 // inizializzaione grafici
-let plotG = new Grafico(document.getElementById("canvasG"), {Max:1000, Min:-1000, NumberOfStep:200, NumberOfSet:3, Colors:["red", "green", "yellow"]})
-let plotA = new Grafico(document.getElementById("canvasA"), {Max:180,  Min:-180,  NumberOfStep:200, NumberOfSet:2, Colors:["white", "orange"]})
+let plotG = new Grafico(document.getElementById("canvasG"), {Max:1000, Min:-1000, NumberOfStep:350, NumberOfSet:2, Colors:["red", "green", "yellow"]})
+let plotA = new Grafico(document.getElementById("canvasA"), {Max:180,  Min:-180,  NumberOfStep:350, NumberOfSet:2, Colors:["white", "orange"]})
+let CurrentPlot = plotG
 plotA.Hide()
 
 
@@ -63,7 +64,10 @@ function NewMessage(data){
             GetValueFromStirng(r).forEach( (valore, index) => plotA.InsertData(parseFloat(valore),index))   
         }else{
             CurrentPlot = plotG
-            GetValueFromStirng(r).forEach( (valore, index) => plotG.InsertData(parseFloat(valore),index))
+            let arr = GetValueFromStirng(r)
+            arr.forEach( (valore, index) => {
+                plotG.InsertData(parseFloat(valore),index)
+            })
         }
 
         
