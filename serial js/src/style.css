@@ -230,16 +230,13 @@ button{
     background: linear-gradient(rgb(203, 0, 0), rgb(134, 0, 0));
 }
 
-.DisabledBtn{
-    background-color: gray;
-}
+
 
 button:hover{
     filter: brightness(1.5);
     color: black;
     font-weight: bold;
 }
-
 
 #Head .CheckBoxContainer{
     margin-left: auto;
