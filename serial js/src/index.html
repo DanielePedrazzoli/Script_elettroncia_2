@@ -1,24 +1,31 @@
 <!DOCTYPE html>
-<html lang="en" class="dark">
+<html class="dark">
 
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-
+    <title>Serial Plotter STM32</title>
+    
+    
+    <!-- ###################################### javascript ########################################### -->
     <script src="JS/Serial.js" defer></script>
     <script src="JS/Chart.min.js"></script>
     <script src="JS/Grafico.js" defer></script>
     <script src="JS/TextRecived.js"></script>
     <script src="JS/Impostazioni.js" defer></script>
     <script src="JS/Script.js" defer></script>
+
+
+    <!-- ###################################### style ########################################### -->
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
     <div id="Container">
+
+        <!-- ###################################### Head ############################################# -->
         <div id="Head">
             <h1>Comunicazione Seriale STM32</h1>
             <div>
@@ -30,10 +37,11 @@
                     <input type="checkbox" name="" id="AngoliMode">
                     <span>Modalità angoli</span>
                 </div>
-
             </div>
-
         </div>
+
+
+        <!-- ###################################### Canvas ############################################# -->
         <div id="CanvasContainer">
             <span id="CanvasLegend"></span>
             <canvas id="canvasG" width="400" height="400"></canvas>
@@ -43,13 +51,13 @@
                     <input type="range" max="300" min="0.1" value="2" value="1" id="Amplification">
                     <input id="AmplificationValue" type="number" min="0.1" max="300" value="1"></input>
                 </div>
-
                 <button class="InfoBtn" onclick="CurrentPlot.Clear()">Pulisci</button>
                 <button class="InfoBtn" onclick="CurrentPlot.Update()">Aggiorna</button>
             </div>
-
         </div>
 
+
+        <!-- ###################################### Data Recived ####################################### -->
         <div id="DataConainer">
             <div>
                 <h2>Dati Ricevuti</h2>
@@ -59,6 +67,8 @@
             <textarea id="chat" readonly></textarea>
         </div>
 
+
+        <!-- ###################################### Data Send ########################################### -->
         <div id="TextContainer">
             <h2>Input dati</h2>
             <div>
@@ -68,10 +78,11 @@
                     <button class="InfoBtn">Pulisci</button>
                 </div>
             </div>
-
         </div>
     </div>
 
+
+    <!-- ###################################### Settings ########################################### -->
     <div class="Modal "  id="SettingWindow">
         <div class="ModalContent">
             <h2>Impostazioni</h2>
@@ -84,14 +95,11 @@
                     <span>Attacca EOL ad ogni invio</span>
                     <input type="checkbox" name="" id="EOL">
                 </div>
-
             </div>
-
             <div class="ModalBtnContainer">
                 <button class="InfoBtn" onclick="impostazioni.Save()">Salva</button>
                 <button class="ErrorBtn" onclick="impostazioni.Hide()">Annulla</button>
             </div>
-           
         </div>
     </div>
 
