@@ -4,13 +4,15 @@ Plotter seriale multicanale scritto in javascript e utilizzabile grazie al brows
 
 
 ## Installazione
+Scaricare al cartella da
+https://minhaskamal.github.io/DownGit/#/home?url=https:%2F%2Fgithub.com%2FDanielePedrazzoli%2FScript_elettroncia_2%2Ftree%2Fmain%2Fserial%20js%2Fsrc
 
 Per iniziare ad usarlo è sufficiente scaricare i file presenti nella cartella e aprire il file .html con browser tra:
 - Google Chrome
 - Opera
 - Edge
 
->nota gli atri browser non funzioneranno poiché no posseggono la API serial
+>nota gli atri browser non funzioneranno poiché non posseggono la API serial
 
 ## Utilizzo
 - Una volta aperta la pagina, collegare la scheda e premere sul pulsante di connessione in alto a sinistra
