@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="dark">
 
 <head>
     <meta charset="UTF-8">
@@ -11,6 +11,7 @@
     <script src="JS/Chart.min.js"></script>
     <script src="JS/Grafico.js" defer></script>
     <script src="JS/TextRecived.js"></script>
+    <script src="JS/Impostazioni.js" defer></script>
     <script src="JS/Script.js" defer></script>
     <link rel="stylesheet" href="style.css">
 </head>
@@ -24,6 +25,7 @@
                 <button id="ChosePort" onclick="SelectNewPort()">Scegli Porta</button>
                 <button class="ErrorBtn" id="DesotryPort" onclick="port.Destroy()">Stacca Porta</button>
                 <button class="InfoBtn" id="StopChart" onclick="ToggleChart()">Abilita/Ferma Grafico</button>
+                <button class="InfoBtn"  onclick="impostazioni.Show()">Impostazioni</button>
                 <div class="CheckBoxContainer">
                     <input type="checkbox" name="" id="AngoliMode">
                     <span>Modalità angoli</span>
@@ -70,7 +72,28 @@
         </div>
     </div>
 
+    <div class="Modal "  id="SettingWindow">
+        <div class="ModalContent">
+            <h2>Impostazioni</h2>
+            <div class="ModalGrid">
+                <div class="CheckBoxContainer">
+                    <span>Tema chiaro</span>
+                    <input type="checkbox" name="" id="Tema" onchange="impostazioni.CambiaTema(this)">
+                </div>
+                <div class="CheckBoxContainer">
+                    <span>Attacca EOL ad ogni invio</span>
+                    <input type="checkbox" name="" id="EOL">
+                </div>
 
+            </div>
+
+            <div class="ModalBtnContainer">
+                <button class="InfoBtn" onclick="impostazioni.Save()">Salva</button>
+                <button class="ErrorBtn" onclick="impostazioni.Hide()">Annulla</button>
+            </div>
+           
+        </div>
+    </div>
 
 </body>
 

@@ -1,14 +1,24 @@
-:root{
+
+
+.light{
+    --bg_body:rgb(200, 200, 200);
+    --bg_window:rgb(230, 230, 230);
+    --colorText:rgb(0, 0, 0); 
+}
+
+.dark{
     --bg_body:rgb(25,25,40);
     --bg_window:rgb(45,45,60);
+    --colorText:rgb(180, 180, 180);
 }
+
 body{
     min-height: 100vh;
     background-color: var(--bg_body);
-    color: rgb(208, 208, 208);
+    color: var(--colorText);
     margin: 0%;
     font-family:Arial, Helvetica, sans-serif;
-    font-size: 0.95rem
+    font-size: 0.95rem;
 }
 
 
@@ -79,7 +89,7 @@ canvas{
     height: 15px;
     top: 0%;
     left: -25px;
-
+    border-radius: 50%;
     background-color: var(--Bg_color_Line);
 }
 
@@ -104,7 +114,7 @@ canvas{
    padding: 0.2rem;
    background-color:var(--bg_window) ;
    border: 1px solid gray;
-   color: white;
+   color: var(--colorText);
    outline: none;
    width: 5ch;
 }
@@ -190,7 +200,7 @@ textarea{
     background-color: var(--bg_window);
     border: none;
     outline: none;
-    color: rgb(200,200,200);
+    color: var(--colorText);
     resize: none;
     font-size: 0.95rem;
 }
@@ -231,13 +241,15 @@ button:hover{
 }
 
 
+#Head .CheckBoxContainer{
+    margin-left: auto;
+    width: 150px;
+}
+
 .CheckBoxContainer{
     display: flex;
-  
     padding: 0.5rem;
-    width: 150px;
-    justify-content: space-between;
-    margin-left: auto;
+    justify-content: space-between; 
 }
 
 
@@ -252,10 +264,10 @@ button:hover{
     content: '';
     position: absolute;
     top: 0%;
-    left: calc(2.5rem / 2);
+    left: 0%;
     width: 3rem;
     height: 1.5rem;
-    transform: translate(-80%,-50%);
+    transform: translate(-50%,-50%);
     background-color: rgb(50, 50, 50);
     border-radius: 1rem;
     transition: all 0.5s ease-in-out;
@@ -265,17 +277,17 @@ button:hover{
     content: '';
     position: absolute;
     top: 0%;
-    left: 0%;
+    left: calc(-1.5rem + 1.3rem / 2 + 0.15rem);
     width: 1.3rem;
     height: 1.3rem;
-    transform: translate(-80%,-50%);
+    transform: translate(-50%,-50%);
     background-color: rgb(70, 70, 70);
     border-radius: 50%;
     transition: all 0.5s ease-in-out;
 }
 
 .CheckBoxContainer input[type="checkbox"]:checked::after{
-    transform: translate(calc(100% - 0.85rem),-50%);
+    left: calc(+1.5rem - 1.3rem / 2 - 0.15rem);
     background-color: rgb(0, 166, 255);
 }
 
@@ -285,6 +297,67 @@ button:hover{
 
 
 
+
+.Modal{
+    position: absolute;
+    top: 0%;
+    left: 0%;
+    width: 100vw;
+    height: 100vh;
+    margin: 0%;
+    background-color: rgba(0,0,0,0.8);
+}
+
+.ModalContent{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    width: 500px;
+
+    background-color: var(--bg_window);
+    border-radius: 1rem;
+    box-shadow: 2px 2px 2px 2px rgba(0,0,0,0.5);
+    border: 1px solid black;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+
+    gap: 2rem;
+}
+
+.ModalContent h2{
+    text-align: center;
+}
+
+.ModalContent > .ModalGrid{
+    display: grid;
+    width: 100%;
+
+}
+
+
+.ModalContent input[type="checkbox"]{
+    left: -0.75rem;
+    top: calc(1.5rem / 4);
+}
+
+.ModalBtnContainer{
+    display: flex;
+    align-items: 100%;
+    justify-content: space-evenly;
+}
+
+
+
+
+
+
+
+
+
+
 .Hide{
     display: none;
+  
 }

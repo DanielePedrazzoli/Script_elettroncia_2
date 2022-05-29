@@ -1,12 +1,16 @@
+// iizializzazione impostazioni
+let impostazioni = new Impostazioni();
+
+
 
 // inizializzaione grafici
 let plotG = new Grafico(document.getElementById("canvasG"), {
-    Max:1000, 
-    Min:-1000, 
-    NumberOfStep:350, 
+    Max:3, 
+    Min:-3, 
+    NumberOfStep:325, 
     Line:[
-        { Color:"rgb(241, 80, 37)", Name:"x"},
-        { Color:"green"           , Name:"y"},
+        { Color:"orangered" , Name:"Ingresso Fir"},
+        { Color:"green"     , Name:"Uscita Fir"},
         // { Color:"yellow"          , Name:"z"}
     ] 
 })
@@ -14,7 +18,7 @@ let plotG = new Grafico(document.getElementById("canvasG"), {
 let plotA = new Grafico(document.getElementById("canvasA"), {
     Max:180,  
     Min:-180,  
-    NumberOfStep:350, 
+    NumberOfStep:325, 
     Line:[
         { Color:"white" , Name:"pitch"},
         { Color:"orange", Name:"roll"},
@@ -24,9 +28,7 @@ let plotA = new Grafico(document.getElementById("canvasA"), {
 let CurrentPlot = plotG
 plotA.Hide()
 
-Chart.defaults.global.legend = {
-    enabled: false
-  };
+
 
 // inizializzazione porta seriale
 let port  = new SerialPort(115200);
@@ -91,12 +93,8 @@ function NewMessage(data){
                 plotG.InsertData(parseFloat(valore),index)
             })
         }
-
-        
     })
 
-    
-      
     FromLastChar = ""
 }
 
@@ -117,7 +115,10 @@ async function ToggleActiveCart(){
     CurrentPlot.StartDraw()
 
 
-    await port.Write("d")
+    if(impostazioni.Get("EOL")){
+        await port.Write("d")
+    }
+    
    
 }
 
