@@ -1,10 +1,32 @@
 
 // inizializzaione grafici
-let plotG = new Grafico(document.getElementById("canvasG"), {Max:1000, Min:-1000, NumberOfStep:350, NumberOfSet:2, Colors:["red", "green", "yellow"]})
-let plotA = new Grafico(document.getElementById("canvasA"), {Max:180,  Min:-180,  NumberOfStep:350, NumberOfSet:2, Colors:["white", "orange"]})
+let plotG = new Grafico(document.getElementById("canvasG"), {
+    Max:1000, 
+    Min:-1000, 
+    NumberOfStep:350, 
+    Line:[
+        { Color:"rgb(241, 80, 37)", Name:"x"},
+        { Color:"green"           , Name:"y"},
+        // { Color:"yellow"          , Name:"z"}
+    ] 
+})
+
+let plotA = new Grafico(document.getElementById("canvasA"), {
+    Max:180,  
+    Min:-180,  
+    NumberOfStep:350, 
+    Line:[
+        { Color:"white" , Name:"pitch"},
+        { Color:"orange", Name:"roll"},
+    ] 
+})
+
 let CurrentPlot = plotG
 plotA.Hide()
 
+Chart.defaults.global.legend = {
+    enabled: false
+  };
 
 // inizializzazione porta seriale
 let port  = new SerialPort(115200);

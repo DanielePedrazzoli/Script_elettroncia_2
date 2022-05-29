@@ -12,48 +12,42 @@ class Grafico{
         this.ctx            = canvas.getContext("2d");
         this.lables         = []
         this.Chart          = null
+        this.legendSpan     = []
 
+
+        // Sezione amplificazione valori
         this.Amplification  = document.getElementById("Amplification")
         this.AmplificationValue = document.getElementById("AmplificationValue")
-        this.Amplification.onchange = ()=>{
-            this.AmplificationValue.value =  this.Amplification.value;
-        }
+        this.Amplification.onchange = () => this.AmplificationValue.value =  this.Amplification.value
+        this.AmplificationValue.onchange = () => this.Amplification.value = this.AmplificationValue.value;
+        
 
-        this.AmplificationValue.onchange = ()=>{
-            this.Amplification.value = this.AmplificationValue.value;
-        }
-
-
-        if(options.Colors){
-            this.Stroke = options.Colors;
-        }
-        else this.Stroke = ["rgba(200,0,250,1)", "rgba(255,0,0,1)", "rgba(0,220,0,1)"]
-
- 
-
-
-        for(let i=0; i<this.MaxLenght; i++){
-            this.lables.push("")
-        }
-
-
-
+        // impostazione e creazione dei valori iniziali
+        let container = document.getElementById("CanvasLegend")
         let dataset = []
 
-        for(let i=0; i<options.NumberOfSet; i++){
+        options.Line.forEach( line=>{
             dataset.push({
                 label: "X",
                 fillColor: "rgba(220,220,220,0.0)",
-                strokeColor: this.Stroke[i],
+                strokeColor: line.Color,
                 pointColor: "rgba(220,220,220,0)",
                 pointStrokeColor: "#fff",
                 type:"line",
-                data: Array(this.MaxLenght).fill(1)
+                data: Array(this.MaxLenght).fill(1),
             })
-        }
+
+            let span = container.appendChild(document.createElement("span"))
+            span.innerText = line.Name;
+            span.style.setProperty("--Bg_color_Line", line.Color)
+            this.legendSpan.push(span)
+        })
+
+
+       
 
         this.PlotData = {
-            labels:this.lables,
+            labels:Array(this.MaxLenght).fill(""),
             datasets:dataset            
         }
 
@@ -73,13 +67,22 @@ class Grafico{
             scaleShowGridLines:false,
             scaleShowHorizontalLines:false,
             scaleShowVerticalLines:false,
-            bezierCurveTension:false
+            bezierCurveTension:false,
+            legend: {
+                display: true,
+                labels: {
+                    fontColor: 'rgb(255, 99, 132)'
+                }
+            }
         };
+
+
+        // creazione oggetto
         this.Chart = new Chart(this.ctx)
 
-        this.Draw()
 
-
+        // rpimo disegno per la base
+        this.Draw()   
     }
 
     StartDraw(){
@@ -106,10 +109,12 @@ class Grafico{
 
     Hide(){   
         this.canvas.style.display = "none"
+        this.legendSpan.forEach( span=> span.classList.add("Hide"))
     }
 
     Show(){
         this.canvas.style.display = "block"
+        this.legendSpan.forEach( span=> span.classList.remove("Hide"))
     }
 
     Clear(){
