@@ -9,7 +9,8 @@ class Impostazioni{
 
             this.Settings = {
                 Tema:"dark",
-                EOL:true
+                EOL:true,
+                SendD:true
             }
             
             window.localStorage.setItem("SerialComunicationSTM32", JSON.stringify(this.Settings));
@@ -24,6 +25,7 @@ class Impostazioni{
 
         document.getElementById("Tema").checked = this.Settings.Tema == "dark"? false : true
         document.getElementById("EOL").checked = this.Settings.EOL
+        document.getElementById("SendD").checked = this.Settings.SendD
 
 
         if(this.Settings.Tema == "light"){
@@ -53,6 +55,7 @@ class Impostazioni{
 
         this.Set("Tema", document.getElementById("Tema").checked? "ligth": "dark");
         this.Set("EOL" , document.getElementById("EOL").checked);
+        this.Set("SendD", document.getElementById("SendD").checked)
 
 
 

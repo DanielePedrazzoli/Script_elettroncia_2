@@ -45,9 +45,12 @@ Quando si visualizza il grafico degli angoli, verranno presi come valori validi 
 
 >Si consiglia di non utilizzare il grafico troppo a lungo e fermarlo quando non necessario a causa della grande quantità di Heap che utilizza.
 Per quanto ottimizzato su alcuni computer potrebbe creare un problema.
-In tal caso è sufficiente chiudere e riaprire
+In tal caso è sufficiente chiudere e riaprire la scheda del browser
 
-Cambiare da un grafico all'altro invierà in automatico un carattere **d** alla scheda
+Cambiare da un grafico all'altro invierà in automatico un carattere **d** alla scheda (modififcabile nelle impostazioni)
+
+Il fattore di amplificazione si applica a tutti i valori ricevuti in tempo reale.
+Se si preme **aggiorna** allora verrù applicato a tutti i punti i memoria (indipendentemete che siano già stati amplificati o no)
 
 ## Programmatore
 

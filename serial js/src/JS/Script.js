@@ -115,7 +115,7 @@ async function ToggleActiveCart(){
     CurrentPlot.StartDraw()
 
 
-    if(impostazioni.Get("EOL")){
+    if(impostazioni.Get("SendD")){
         await port.Write("d")
     }
     

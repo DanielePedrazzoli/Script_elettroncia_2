@@ -35,7 +35,7 @@ class SerialPort{
         }
         const encoder = new TextEncoder();
         const writer = this.ComPort.writable.getWriter();
-        await writer.write(encoder.encode(data + "\r"));
+        await writer.write(encoder.encode(data + (impostazioni.Get("EOL")?"\r\n": "")));
         writer.releaseLock();
     }
 
