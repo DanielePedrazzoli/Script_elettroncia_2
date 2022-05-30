@@ -147,10 +147,12 @@ class Grafico{
      * Elimina tutti i punti salvati sul grafico reimpostandoli a 0
      */
     Clear(){
-        if(!confirm("Eliminare tutti i dati dal grafico? (non reversibile)"))
-        this.PlotData.datasets.forEach( ds=>{
-            ds.data = Array(this.MaxLenght).fill(0)
-        })
+        if(confirm("Eliminare tutti i dati dal grafico? (non reversibile)")){
+            this.PlotData.datasets.forEach( ds=>{
+                ds.data = Array(this.MaxLenght).fill(0)
+            })
+        }
+       
     }
 
     /**

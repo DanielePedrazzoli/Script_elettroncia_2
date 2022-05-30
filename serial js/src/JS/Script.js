@@ -5,8 +5,8 @@ let impostazioni = new Impostazioni();
 
 // inizializzaione grafici
 let plotG = new Grafico(document.getElementById("canvasG"), {
-    Max:3, 
-    Min:-3, 
+    Max:1000, 
+    Min:-1000, 
     NumberOfStep:325, 
     Line:[
         { Color:"orangered" , Name:"Ingresso Fir"},
