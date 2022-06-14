@@ -5,9 +5,9 @@ let impostazioni = new Impostazioni();
 
 // inizializzaione grafici
 let plotG = new Grafico(document.getElementById("canvasG"), {
-    Max:1000, 
-    Min:-1000, 
-    NumberOfStep:325, 
+    Max:180, 
+    Min:-180, 
+    NumberOfStep:300, 
     Line:[
         { Color:"orangered" , Name:"Ingresso Fir"},
         { Color:"green"     , Name:"Uscita Fir"},
@@ -18,7 +18,7 @@ let plotG = new Grafico(document.getElementById("canvasG"), {
 let plotA = new Grafico(document.getElementById("canvasA"), {
     Max:180,  
     Min:-180,  
-    NumberOfStep:325, 
+    NumberOfStep:120, 
     Line:[
         { Color:"white" , Name:"pitch"},
         { Color:"orange", Name:"roll"},
@@ -89,9 +89,12 @@ function NewMessage(data){
         }else{
             CurrentPlot = plotG
             let arr = GetValueFromStirng(r)
+            let s = "roll: ";
             arr.forEach( (valore, index) => {
                 plotG.InsertData(parseFloat(valore),index)
+                s += parseFloat(valore) + "\tpitch: ";
             })
+            console.log(s)
         }
     })
 
