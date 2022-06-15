@@ -5,13 +5,14 @@ let impostazioni = new Impostazioni();
 
 // inizializzaione grafici
 let plotG = new Grafico(document.getElementById("canvasG"), {
-    Max:180, 
-    Min:-180, 
-    NumberOfStep:300, 
+    Max:1000, 
+    Min:-1000, 
+    NumberOfStep:50, 
     Line:[
-        { Color:"orangered" , Name:"Asse X"},
-        { Color:"green"     , Name:"Asse Y"},
-        { Color:"green"     , Name:"Asse Z"},
+        { Color:"orangered" , Name:"R"},
+        { Color:"green"     , Name:"P"},
+        { Color:"red"     , Name:"R5"},
+        { Color:"white"     , Name:"P5"},
     ] 
 })
 
@@ -76,32 +77,31 @@ function NewMessage(data){
 
     let LastIndexOfSeparator = FromLastChar.lastIndexOf("#");
     let ValidString = FromLastChar.substring(0, LastIndexOfSeparator);
-    FromLastChar = FromLastChar.substring(LastIndexOfSeparator+1,FromLastChar.length-1)
+    FromLastChar = FromLastChar.substring(LastIndexOfSeparator,FromLastChar.length)
 
 
 
     ValidString.split("#").forEach( r=>{
 
+        // se la stringa è vuota non la analizzo
+        if(!r){
+            return
+        }
         // determino a quale grafico devo inviare i dati in base al valore 
         // della checkbox
-        if(document.getElementById("AngoliMode").checked){
+        if(document.getElementById("AngoliMode").checked)
             CurrentPlot = plotA
-            if(CurrentPlot.NumberOfline > arr.length){
-                console.error(arr);
-                return
-            }
-            GetValueFromStirng(r)?.forEach( (valore, index) => plotA.InsertData(parseFloat(valore),index))   
-        }else{
+        else
             CurrentPlot = plotG
-            let arr = GetValueFromStirng(r) || []
-            if(CurrentPlot.NumberOfline > arr.length){
-                console.error(arr);
-                return
-            }
-            arr.forEach( (valore, index) => {
-                plotG.InsertData(parseFloat(valore),index)
-            })
+        
+
+
+        let arr = GetValueFromStirng(r) || []
+        if(CurrentPlot.NumberOfline != arr.length){
+            console.error("Il numero di valori non corrisponde con i valori del grafico");
+            return
         }
+        arr.forEach( (valore, index) => CurrentPlot.InsertData(parseFloat(valore),index))   
     })
 
 }

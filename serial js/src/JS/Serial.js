@@ -10,13 +10,14 @@ class SerialPort{
         this.PollingIntervall = null;
         this.OnNewMessage = null;
         this.Reading = false;
+        this.StopConnection = false;
     }
 
     /**
      * 
      * @param {number?} baudRate il baudRate della porta seriale, parametro facoltativo 
      */
-    async Init(baudRate ){
+    async Init(baudRate){
         if(baudRate) this.baudRate = baudRate;
         this.ComPort = await navigator.serial.requestPort({})
         this.ComPort.addEventListener('disconnect',  event => alert("Serial disconnected"));
@@ -45,6 +46,7 @@ class SerialPort{
      */
     StartListen(timeout){
         this.PollingIntervall = setInterval( async()=>this.DataAvaiable(), timeout? timeout: 10)
+        this.StopConnection = false;
     }
 
     /**
@@ -52,6 +54,11 @@ class SerialPort{
      */
     StopListen(){
         clearInterval(this.PollingIntervall)
+        this.PollingIntervall = null
+        this.StopConnection = true
+     //   this.reader.cancel()
+       this.ComPort.close()
+       alert("Porta seriale disconnessa")
     }
 
     /**
@@ -60,10 +67,10 @@ class SerialPort{
      */
     async DataAvaiable(){
 
-        if(!this.ComPort || this.Reading) return;
+        if(!this.ComPort || this.Reading || this.StopConnection) return;
 
  
-        while (this.ComPort.readable) {
+        while (this.ComPort.readable && !this.StopConnection) {
             this.reader = this.ComPort.readable.getReader();
             try {
                 while (true) {
@@ -71,7 +78,7 @@ class SerialPort{
                     this.Reading = true
                     const { value, done } = await this.reader.read();
 
-                    if (done) {
+                    if (done || this.StopConnection) {
                         this.Reading = false
                         break;
                     }
@@ -81,12 +88,12 @@ class SerialPort{
                 console.log(error)
             } finally {
                 this.reader.releaseLock();
+              
             }
         }
 
-        if(!this.PollingIntervall){
-            await this.reader.cancel()
-            await this.ComPort.close()
+        if(this.StopConnection){
+            this.ComPort.close()
         }
 
     }
