@@ -87,12 +87,18 @@ function NewMessage(data){
         // della checkbox
         if(document.getElementById("AngoliMode").checked){
             CurrentPlot = plotA
-            console.log(r)
+            if(CurrentPlot.NumberOfline > arr.length){
+                console.error(arr);
+                return
+            }
             GetValueFromStirng(r)?.forEach( (valore, index) => plotA.InsertData(parseFloat(valore),index))   
         }else{
             CurrentPlot = plotG
             let arr = GetValueFromStirng(r) || []
-            console.log(r)
+            if(CurrentPlot.NumberOfline > arr.length){
+                console.error(arr);
+                return
+            }
             arr.forEach( (valore, index) => {
                 plotG.InsertData(parseFloat(valore),index)
             })

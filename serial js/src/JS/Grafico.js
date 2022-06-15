@@ -27,6 +27,7 @@ class Grafico{
         this.AmplificationValue = document.getElementById("AmplificationValue")
         this.Amplification.onchange = () => this.AmplificationValue.value =  this.Amplification.value
         this.AmplificationValue.onchange = () => this.Amplification.value = this.AmplificationValue.value;
+        this.NumberOfline = options.Line.length;
         
 
         // impostazione e creazione dei valori iniziali
