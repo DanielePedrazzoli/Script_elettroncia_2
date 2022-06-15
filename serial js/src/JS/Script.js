@@ -11,7 +11,8 @@ let plotG = new Grafico(document.getElementById("canvasG"), {
     Line:[
         { Color:"orangered" , Name:"Ingresso Fir"},
         { Color:"green"     , Name:"Uscita Fir"},
-        // { Color:"yellow"          , Name:"z"}
+        { Color:"red" , Name:"pitch"},
+        { Color:"white", Name:"roll"},
     ] 
 })
 
@@ -22,6 +23,7 @@ let plotA = new Grafico(document.getElementById("canvasA"), {
     Line:[
         { Color:"white" , Name:"pitch"},
         { Color:"orange", Name:"roll"},
+
     ] 
 })
 
@@ -85,20 +87,18 @@ function NewMessage(data){
         // della checkbox
         if(document.getElementById("AngoliMode").checked){
             CurrentPlot = plotA
-            GetValueFromStirng(r).forEach( (valore, index) => plotA.InsertData(parseFloat(valore),index))   
+            console.log(r)
+            GetValueFromStirng(r)?.forEach( (valore, index) => plotA.InsertData(parseFloat(valore),index))   
         }else{
             CurrentPlot = plotG
-            let arr = GetValueFromStirng(r)
-            let s = "roll: ";
+            let arr = GetValueFromStirng(r) || []
+            console.log(r)
             arr.forEach( (valore, index) => {
                 plotG.InsertData(parseFloat(valore),index)
-                s += parseFloat(valore) + "\tpitch: ";
             })
-            console.log(s)
         }
     })
 
-    FromLastChar = ""
 }
 
 function GetValueFromStirng(stringa){
