@@ -9,10 +9,9 @@ let plotG = new Grafico(document.getElementById("canvasG"), {
     Min:-180, 
     NumberOfStep:300, 
     Line:[
-        { Color:"orangered" , Name:"Ingresso Fir"},
-        { Color:"green"     , Name:"Uscita Fir"},
-        { Color:"red" , Name:"pitch"},
-        { Color:"white", Name:"roll"},
+        { Color:"orangered" , Name:"Asse X"},
+        { Color:"green"     , Name:"Asse Y"},
+        { Color:"green"     , Name:"Asse Z"},
     ] 
 })
 
@@ -21,8 +20,8 @@ let plotA = new Grafico(document.getElementById("canvasA"), {
     Min:-180,  
     NumberOfStep:120, 
     Line:[
-        { Color:"white" , Name:"pitch"},
-        { Color:"orange", Name:"roll"},
+        { Color:"white" , Name:"roll"},
+        { Color:"orange", Name:"pitch"},
 
     ] 
 })
